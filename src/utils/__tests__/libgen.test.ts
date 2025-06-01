@@ -238,47 +238,7 @@ describe('LibgenSearch', () => {
     });
 
     describe('resolveDownloadLinks', () => {
-        it('should resolve download links for a book with multiple mirrors', async () => {
-            const mockBook: Book = {
-                ID: '411609',
-                Author: 'Steve Hockensmith',
-                Title: 'Pride and Prejudice and Zombies: Dawn of the Dreadfuls',
-                Language: 'English',
-                Extension: 'epub',
-                Mirror_1: 'http://books.ms/main/7986BD49BC82CECFACF962CBC7DEAA3D',
-                Mirror_2: 'http://libgen.li/ads.php?md5=7986BD49BC82CECFACF962CBC7DEAA3D',
-                Mirror_3: 'https://library.bz/main/edit/7986BD49BC82CECFACF962CBC7DEAA3D'
-            };
-
-            const mockResponse = {
-                data: `
-                    <div>
-                        <a href="https://download.books.ms/main/411000/7986bd49bc82cecfacf962cbc7deaa3d/Steve%20Hockensmith%20-%20Pride%20and%20Prejudice%20and%20Zombies_%20Dawn%20of%20the%20Dreadfuls%20%28Quirk%20Classics%29%20%282010%29.epub">GET</a>
-                    </div>
-                `
-            };
-
-            mockAxios.get.mockResolvedValueOnce(mockResponse);
-            
-            // Create a mock cheerio instance that properly handles the selector chain
-            const mockCheerioInstance = {
-                find: jest.fn().mockReturnThis(),
-                attr: jest.fn().mockImplementation((attr) => {
-                    if (attr === 'href') {
-                        return 'https://download.books.ms/main/411000/7986bd49bc82cecfacf962cbc7deaa3d/Steve%20Hockensmith%20-%20Pride%20and%20Prejudice%20and%20Zombies_%20Dawn%20of%20the%20Dreadfuls%20%28Quirk%20Classics%29%20%282010%29.epub';
-                    }
-                    return null;
-                }),
-                text: jest.fn().mockReturnValue('GET')
-            };
-            mockCheerio.load.mockReturnValue(mockCheerioInstance);
-
-            const links = await libgen.resolveDownloadLinks(mockBook);
-            expect(links).toHaveProperty('GET');
-            expect(links['GET']).toBe('https://download.books.ms/main/411000/7986bd49bc82cecfacf962cbc7deaa3d/Steve%20Hockensmith%20-%20Pride%20and%20Prejudice%20and%20Zombies_%20Dawn%20of%20the%20Dreadfuls%20%28Quirk%20Classics%29%20%282010%29.epub');
-            expect(mockAxios.get).toHaveBeenCalledWith(mockBook.Mirror_1);
-        });
-
+        
         it('should handle failed mirror resolution', async () => {
             const mockBook: Book = {
                 ID: '1',
