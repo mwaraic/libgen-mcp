@@ -1,7 +1,7 @@
 {
-	"name": "remote-mcp-authless",
+	"name": "libgen-mcp",
 	"version": "1.0.0",
-	"description": "Remote MCP server for Library Genesis tools",
+	"description": "MCP server for Library Genesis",
 	"type": "module",
 	"main": "src/index.ts",
 	"scripts": {

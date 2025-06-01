@@ -6,7 +6,7 @@ import { LibgenSearch } from "./utils/libgen.ts";
 // Define our MCP agent with tools
 export class MyMCP extends McpAgent {
 	server = new McpServer({
-		name: "Library Genesis Tools",
+		name: "Library Genesis",
 		version: "1.0.0",
 	});
 
